@@ -1,4 +1,4 @@
 @echo off
 git add .
-git commit -m "Add vercel.json to fix framework detection"
+git commit -m "Supersonic theme - neon cyan, speed lines, 3D rings, sonic UI"
 git push
