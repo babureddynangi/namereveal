@@ -2,7 +2,24 @@
 
 import { useState, useEffect, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Music, MusicOff } from 'lucide-react'
+function MusicIcon() {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none"
+      stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/>
+    </svg>
+  )
+}
+
+function MusicOffIcon() {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none"
+      stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/>
+      <line x1="2" y1="2" x2="22" y2="22"/>
+    </svg>
+  )
+}
 
 const PETALS = ['🌸', '🌺', '✨', '🌼', '💮']
 
@@ -61,7 +78,7 @@ export default function RevealPage() {
         className="fixed top-4 right-4 z-50 bg-white/80 backdrop-blur rounded-full p-3 shadow-md text-pink-500 hover:scale-110 transition-transform"
         aria-label="Toggle music"
       >
-        {musicOn ? <Music size={22} /> : <MusicOff size={22} />}
+        {musicOn ? <MusicIcon /> : <MusicOffIcon />}
       </button>
 
       {/* Falling petals */}
