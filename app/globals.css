@@ -2,26 +2,136 @@
 @tailwind components;
 @tailwind utilities;
 
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+@import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&display=swap');
 
 body {
-  font-family: 'Georgia', serif;
+  background: #0a0005;
+  overflow-x: hidden;
+  font-family: 'Cormorant Garamond', serif;
 }
 
-@keyframes float {
-  0%   { transform: translateY(0px) rotate(0deg); opacity: 1; }
-  100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+.font-royal { font-family: 'Cinzel Decorative', cursive; }
+.font-elegant { font-family: 'Cormorant Garamond', serif; }
+
+/* Gold shimmer text */
+.gold-text {
+  background: linear-gradient(135deg, #c9a84c 0%, #f5e27a 30%, #c9a84c 50%, #f5e27a 70%, #c9a84c 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: shimmer 3s linear infinite;
+}
+
+@keyframes shimmer {
+  0% { background-position: 0% center; }
+  100% { background-position: 200% center; }
+}
+
+/* Royal border glow */
+.royal-border {
+  border: 1px solid rgba(201, 168, 76, 0.4);
+  box-shadow:
+    0 0 20px rgba(201, 168, 76, 0.15),
+    0 0 60px rgba(201, 168, 76, 0.05),
+    inset 0 0 20px rgba(201, 168, 76, 0.05);
+}
+
+/* Reveal button */
+.reveal-btn {
+  background: linear-gradient(135deg, #1a0a2e, #2d1b4e);
+  border: 1px solid rgba(201, 168, 76, 0.6);
+  box-shadow:
+    0 0 30px rgba(201, 168, 76, 0.3),
+    inset 0 0 20px rgba(201, 168, 76, 0.05);
+  transition: all 0.4s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.reveal-btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(201,168,76,0.1), transparent, rgba(201,168,76,0.1));
+  opacity: 0;
+  transition: opacity 0.4s;
+}
+
+.reveal-btn:hover::before { opacity: 1; }
+.reveal-btn:hover {
+  box-shadow: 0 0 50px rgba(201, 168, 76, 0.5), inset 0 0 30px rgba(201, 168, 76, 0.1);
+  transform: translateY(-2px) scale(1.02);
+}
+
+/* Particle canvas */
+#particle-canvas {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Floating petals */
+@keyframes petalFall {
+  0%   { transform: translateY(-10vh) translateX(0) rotate(0deg); opacity: 0; }
+  10%  { opacity: 1; }
+  90%  { opacity: 0.8; }
+  100% { transform: translateY(110vh) translateX(var(--drift)) rotate(var(--spin)); opacity: 0; }
 }
 
 .petal {
   position: fixed;
-  top: -20px;
-  animation: float linear infinite;
+  top: 0;
+  animation: petalFall var(--dur) ease-in var(--delay) infinite;
   pointer-events: none;
-  font-size: 1.5rem;
-  z-index: 50;
+  z-index: 10;
+  font-size: var(--size);
+  filter: drop-shadow(0 0 6px rgba(201,168,76,0.6));
+}
+
+/* Ornament lines */
+.ornament-line {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(201,168,76,0.6), transparent);
+}
+
+/* Card glass */
+.glass-card {
+  background: linear-gradient(135deg,
+    rgba(26, 10, 46, 0.85) 0%,
+    rgba(15, 5, 30, 0.9) 50%,
+    rgba(26, 10, 46, 0.85) 100%
+  );
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+/* Name reveal glow */
+.name-glow {
+  text-shadow:
+    0 0 20px rgba(201, 168, 76, 0.8),
+    0 0 40px rgba(201, 168, 76, 0.4),
+    0 0 80px rgba(201, 168, 76, 0.2);
+}
+
+/* Pulse ring */
+@keyframes pulseRing {
+  0%   { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(201,168,76,0.4); }
+  70%  { transform: scale(1);    box-shadow: 0 0 0 20px rgba(201,168,76,0); }
+  100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(201,168,76,0); }
+}
+.pulse-ring { animation: pulseRing 2.5s ease-out infinite; }
+
+/* Scroll fade in */
+.fade-up {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+.fade-up.visible {
+  opacity: 1;
+  transform: translateY(0);
 }
